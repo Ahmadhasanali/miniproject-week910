@@ -1,24 +1,84 @@
-import logo from './logo.svg';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
+
+import Home from './components/home';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import { logout } from './redux/actions/auth';
+import { clearMessage } from './redux/actions/message';
+
 function App() {
+  const { user: currentUser } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (['/login', '/register'].includes(location.pathname)) {
+      dispatch(clearMessage());
+    }
+  }, [dispatch, location]);
+
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <Link to={'/'} className="navbar-brand">
+          Sparta App
+        </Link>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={'/'} className="nav-link">
+              Home
+            </Link>
+          </li>
+        </div>
+
+        {currentUser ? (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={'/profile'} className="nav-link">
+                {`${currentUser.first_name} ${currentUser.last_name}`}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <a href={'/login'} className="nav-link" onClick={handleLogout}>
+                Log Out
+              </a>
+            </li>
+          </div>
+        ) : (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={'/login'} className="nav-link">
+                Log In
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={'/register'} className="nav-link">
+                Sign Up
+              </Link>
+            </li>
+          </div>
+        )}
+      </nav>
+      <div className="container mt-3">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          {/* <Route path="/profile" element={<Profile />} /> */}
+        </Routes>
+      </div>
+    </>
   );
 }
 
