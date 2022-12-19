@@ -9,7 +9,7 @@ const buttonTypes = {
 
 function Button({ type, variant = 'primary', children, ...rest }) {
   return (
-    <button style={{fontSize:15  }}
+    <button 
       type={type === 'submit' ? 'submit' : 'button'}
       className={getClasses([
         styles.button,
@@ -24,7 +24,7 @@ function Button({ type, variant = 'primary', children, ...rest }) {
 
 function SelectButton({ children, id, ...rest }) {
   return (
-    <select style={{fontSize:15  }}
+    <select 
       id={id}
       className={getClasses([styles.button, styles.button__select])}
       {...rest}

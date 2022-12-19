@@ -9,7 +9,7 @@ const Home = () => {
     return (
         <div>
             <div  className="container">
-                <PageTitle style={{fontSize:40  }}>TODO List</PageTitle>
+                <PageTitle >TODO List</PageTitle>
                 <div className={styles.app__wrapper}>
                     <AppHeader />
                     <AppContent />

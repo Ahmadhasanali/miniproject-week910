@@ -13,21 +13,21 @@
 }
 .content__wrapper {
 	background-color: var(--bg-2);
-	padding: 2rem;
-	border-radius: 12px;
+	padding: 1rem;
+	border-radius: 6px;
 	@include smallDeviceSize {
-		padding: 1.5rem;
+		padding: 0.75rem;
 	}
 }
 .emptyText {
 	// display: inline-block;
-	font-size: 1.6rem;
+	font-size: 0.8rem;
 	font-weight: 500;
 	color: var(--black-2);
 	text-align: center;
 	margin: 0 auto;
 	padding: 0.5rem 1rem;
-	border-radius: 8px;
+	border-radius: 4px;
 	background-color: var(--gray-2);
 	width: max-content;
 	height: auto;

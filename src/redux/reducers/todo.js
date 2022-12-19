@@ -1,17 +1,16 @@
+import {createSlice} from '@reduxjs/toolkit'
+
 const initialState = {
     todoList: [
-        {id: '1', status: "incomplete", time: "12/13/2022, 8:39:55 PM", title: "test"}
+        {id: '1', status: "incomplete", time: "12/13/2022, 8:39:55 PM", title: "test"},
+        {id: '2', status: "complete", time: "12/19/2022, 8:39:55 PM", title: "Something new"},
     ]
 };
 
-const todoReducer = (state = initialState, action) => {
-    const {type, payload} = action;
+const todoSlice = createSlice({
+    name: 'todo',
+    initialState
+})
 
-    switch (type) {
-        default:
-            return state;
-    }
-
-};
-
-export default todoReducer;
+export const {} = todoSlice.actions;
+export default todoSlice.reducer;
