@@ -33,19 +33,13 @@ function App() {
         <Link to={'/'} className="navbar-brand">
           Sparta App
         </Link>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={'/'} className="nav-link">
-              Home
-            </Link>
-          </li>
-        </div>
+
 
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link to={'/profile'} className="nav-link">
-                {`${currentUser.first_name} ${currentUser.last_name}`}
+              <Link to={'/'} className="nav-link">
+                Home
               </Link>
             </li>
             <li className="nav-item">

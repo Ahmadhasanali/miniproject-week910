@@ -9,6 +9,7 @@ import styles from '../styles/modules/todoItem.module.scss';
 import { getClasses } from '../utils/getClasses';
 import CheckButton from './CheckButton';
 import TodoModal from './TodoModal';
+import { checkTodo, deleteTodo } from '../redux/reducers/todo';
 
 const child = {
   hidden: { y: 20, opacity: 0 },
@@ -18,34 +19,61 @@ const child = {
   },
 };
 
+//create your forceUpdate hook
+
+
 function TodoItem({ todo }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
+  const [loctodo, setLocTodo] = useState(todo)
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
-
-  // useEffect(() => {
-  //   if (todo.status === 'complete') {
-  //     setChecked(true);
-  //   } else {
-  //     setChecked(false);
-  //   }
-  // }, [todo.status]);
+  const [days, setDays] = useState(0)
+  const [seconds, setSeconds] = useState(0)
+  const deadline = todo.time.toString()
+  const slice = deadline.slice(0,-3)
+  // console.log(slice);
 
   const handleCheck = () => {
     setChecked(!checked);
-    // dispatch(
-    //   updateTodo({ ...todo, status: checked ? 'incomplete' : 'complete' })
-    // );
+    setLocTodo({...loctodo, status: checked ? false : true})
+    dispatch(checkTodo({...loctodo, status: checked ? false : true}));
   };
 
   const handleDelete = () => {
-    // dispatch(deleteTodo(todo.id));
+    dispatch(deleteTodo(loctodo.todoId));
     toast.success('Todo Deleted Successfully');
   };
 
   const handleUpdate = () => {
     setUpdateModalOpen(true);
   };
+
+  const leading0 = (num) => {
+    return num < 10 ? "0" + num : num;
+  }
+
+  const getTimeUntil = (deadline) => {
+    const time = deadline - Date.parse(new Date())
+    if (time < 0) {
+      setDays(0)
+      setSeconds(0)
+    } else {
+      setDays(Math.floor(time / (1000 * 60 * 60 * 24)))
+      setSeconds(Math.floor((time / 1000) % 60))
+    }
+  }
+
+  useEffect(() => {
+    if (loctodo.status === true) {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+    setInterval(() => getTimeUntil(deadline), 1000);
+    return () => getTimeUntil(deadline)
+  }, [loctodo.status, deadline]);
+  // console.log(todo);
+  // console.log(format(format1, 'yyyy/MM/dd'));
 
   return (
     <>
@@ -56,13 +84,16 @@ function TodoItem({ todo }) {
             <p
               className={getClasses([
                 styles.todoText,
-                todo.status === 'complete' && styles['todoText--completed'],
+                loctodo.status === true && styles['todoText--completed'],
               ])}
             >
-              {todo.title}
+              {loctodo.todo}
             </p>
             <p className={styles.time}>
-              {format(new Date(todo.time), 'p, MM/dd/yyyy')}
+            </p>
+            <p className={styles.time}>
+              {/* {format(new Date(todo.time), 'p, MM/dd/yyyy')} */}
+              {format(slice*1000, 'MM/dd/yyyy')} || <span> {leading0(days)} days left</span> || {leading0(seconds)? leading0(seconds) : 'has been stop'}
             </p>
           </div>
         </div>
@@ -91,7 +122,7 @@ function TodoItem({ todo }) {
         type="update"
         modalOpen={updateModalOpen}
         setModalOpen={setUpdateModalOpen}
-        todo={todo}
+        todo={loctodo}
       />
     </>
   );
