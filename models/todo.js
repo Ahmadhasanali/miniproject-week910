@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Todo.belongsTo(models.User, {foreignKey: 'userId', as: 'user'})
     }
   }
   Todo.init({
@@ -24,10 +23,14 @@ module.exports = (sequelize, DataTypes) => {
     todo: DataTypes.STRING,
     description: DataTypes.STRING,
     priority: DataTypes.INTEGER,
+    time: DataTypes.BIGINT,
     status: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Todo',
   });
+  Todo.associate = function(models){
+    Todo.belongsTo(models.User, {foreignKey: 'userId', as: 'user'})
+  }
   return Todo;
 };

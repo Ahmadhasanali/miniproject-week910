@@ -12,7 +12,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'User',
+          model: 'Users',
           key: 'userId'
         }
       },
@@ -24,6 +24,9 @@ module.exports = {
       },
       priority: {
         type: Sequelize.INTEGER
+      },
+      time: {
+        type: Sequelize.BIGINT
       },
       status: {
         type: Sequelize.BOOLEAN

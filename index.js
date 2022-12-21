@@ -15,6 +15,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 const User = require('./routes/user')
 app.use('/user', User)
 
+const Todos = require('./routes/todo')
+app.use('/todos', Todos)
+
 app.listen(PORT, () => {
     console.log(PORT+' port is open for todo server');
 })
