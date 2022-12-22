@@ -29,25 +29,20 @@ function App() {
 
   return (
     <>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav className="navbar navbar-expand navbar-dark bg-dark ml-auto">
         <Link to={'/'} className="navbar-brand">
-          Sparta App
+          miniTodo
         </Link>
 
 
         {currentUser ? (
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={'/'} className="nav-link">
-                Home
-              </Link>
-            </li>
+          <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <a href={'/login'} className="nav-link" onClick={handleLogout}>
                 Log Out
               </a>
             </li>
-          </div>
+          </ul>
         ) : (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">

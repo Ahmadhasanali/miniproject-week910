@@ -50,15 +50,18 @@ function AppContent() {
     return <Navigate to="/login" />;
   }
 
-  const sortedTodoList = [...todoList]
-  sortedTodoList.sort((a, b) => new Date(a.time) - new Date(b.time))
+  const sortedCheckTodoList = [...todoList]
+  sortedCheckTodoList.sort((a, b) => (a.status === b.status)? 0 : a.status? -1 : 1)
+  const sortedTimeTodoList = sortedCheckTodoList.sort((a,b)=> new Date(a.time) - new Date(b.time))
+  const sortedPrioTodoList = sortedTimeTodoList.sort((a,b) => b.priority - a.priority)
 
-  const filteredTodoList = sortedTodoList.filter((item) => {
+  const filteredTodoList = sortedPrioTodoList.filter((item) => {
     if (initialFilterStatus === 'all') {
       return true
     } if(initialFilterStatus === 'week'){
       const day = Math.floor((item.time - Date.parse(new Date())) / (1000 * 60 * 60 * 24))
-      if (day <= 7) {
+      console.log(day);
+      if (day <= 7 && day >= 0) {
         return true
       }
     } else {

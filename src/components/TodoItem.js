@@ -72,8 +72,9 @@ function TodoItem({ todo }) {
     setInterval(() => getTimeUntil(deadline), 1000);
     return () => getTimeUntil(deadline)
   }, [loctodo.status, deadline]);
-  // console.log(todo);
+  // console.log(leading0(days));
   // console.log(format(format1, 'yyyy/MM/dd'));
+  
 
   return (
     <>
@@ -89,11 +90,10 @@ function TodoItem({ todo }) {
             >
               {loctodo.todo}
             </p>
-            <p className={styles.time}>
-            </p>
+            <p className={styles.time}>{loctodo.priority === 3? 'High': loctodo.priority === 2? 'Medium': loctodo.priority === 0? 'Low':''}</p>
             <p className={styles.time}>
               {/* {format(new Date(todo.time), 'p, MM/dd/yyyy')} */}
-              {format(slice*1000, 'MM/dd/yyyy')} || <span> {leading0(days)} days left</span> || {leading0(seconds)? leading0(seconds) : 'has been stop'}
+              {format(slice*1000, 'MM/dd/yyyy')} || {leading0(seconds) === "00" ? 'It was past todo' : leading0(days) === "00"? <span style={{ fontWeight:'Bold' }}> TODAY IS THE DAY!</span> : <span> {leading0(days)} Days left</span> }  
             </p>
           </div>
         </div>

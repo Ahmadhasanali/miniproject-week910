@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/todos'
+const API_URL = 'http://13.214.149.116/todos'
 const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {

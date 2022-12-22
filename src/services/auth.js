@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://13.214.149.116';
 
-const register = (firstName, lastName, email, password) => {
-    return axios.post(`${API_URL}/users/register`, {
-        first_name: firstName,
-        last_name: lastName,
+const register = (username, email, password) => {
+    return axios.post(`${API_URL}/user/register`, {
+        username: username,
         email: email,
         password: password,
     });

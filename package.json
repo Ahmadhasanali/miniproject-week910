@@ -17,6 +17,7 @@
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "framer-motion": "^7.8.0",
+    "mdb-react-ui-kit": "^5.1.0",
     "moment": "^2.29.4",
     "node-sass": "^8.0.0",
     "react": "^18.2.0",

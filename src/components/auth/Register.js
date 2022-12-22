@@ -1,11 +1,11 @@
+import { MDBInput } from 'mdb-react-ui-kit';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { register } from '../../redux/actions/auth';
 
 const Register = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [success, setSuccess] = useState(false);
@@ -13,14 +13,9 @@ const Register = () => {
     const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
 
-    const onChangeFirstName = e => {
-        const firstName = e.target.value;
-        setFirstName(firstName);
-    };
-
-    const onChangeLastName = e => {
-        const lastName = e.target.value;
-        setLastName(lastName);
+    const onChangeUsername = e => {
+        const Username = e.target.value;
+        setUsername(Username);
     };
 
     const onChangeEmail = e => {
@@ -34,7 +29,7 @@ const Register = () => {
     };
 
     const handleRegister = () => {
-        dispatch(register(firstName, lastName, email, password ))
+        dispatch(register(username, email, password))
             .then(() => {
                 setSuccess(true);
             })
@@ -51,24 +46,13 @@ const Register = () => {
                     {!success && (
                         <div>
                             <div className="form-group">
-                                <label htmlFor="firstName">First Name</label>
+                                <label htmlFor="username">Username</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    name="firstName"
-                                    value={firstName}
-                                    onChange={onChangeFirstName}
-                                    required
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="lastName">Last Name</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="lastName"
-                                    value={lastName}
-                                    onChange={onChangeLastName}
+                                    name="username"
+                                    value={username}
+                                    onChange={onChangeUsername}
                                     required
                                 />
                             </div>
